@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Upload from "./pages/Upload";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -32,6 +33,8 @@ function App() {
             <Route path="/home" element={<Home isCollapsed={isCollapsed} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/Upload" element={<Upload />} />
+
           </Routes>
         </div>
 

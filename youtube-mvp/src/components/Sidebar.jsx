@@ -18,6 +18,11 @@ const Sidebar = ({ isCollapsed }) => {
         <li className="hover:bg-gray-800 p-2 rounded-lg cursor-pointer">
           📚 {!isCollapsed && "Library"}
         </li>
+        <li className="hover:bg-gray-800 p-2 rounded-lg cursor-pointer">
+          {!isCollapsed && "Uploads"}
+
+        </li>
+
       </ul>
     </div>
   );

@@ -5,6 +5,9 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// ✅ IMPORT ROUTES
+const uploadRoutes = require("./routes/upload");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -13,13 +16,18 @@ app.use(express.json());
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
-  family: 4, // force IPv4
+  family: 4,
 });
 
 // Test DB connection
 pool.connect()
   .then(() => console.log("✅ Supabase DB Connected"))
   .catch((err) => console.error("❌ DB Error:", err));
+
+/** ================= ROUTES ================= **/
+
+// ✅ Upload Route (IMPORTANT FIX)
+app.use("/api", uploadRoutes);
 
 /** Signup Route */
 app.post("/api/signup", async (req, res) => {
@@ -78,7 +86,6 @@ app.post("/api/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
@@ -92,12 +99,12 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-/** Example Protected Route */
+/** Protected Route */
 app.get("/api/profile", async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
 
-  const token = authHeader.split(" ")[1]; // "Bearer <token>"
+  const token = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -112,6 +119,8 @@ app.get("/api/profile", async (req, res) => {
     res.status(401).json({ message: "Invalid token" });
   }
 });
+
+/** ================= SERVER ================= **/
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
