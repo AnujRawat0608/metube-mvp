@@ -29,7 +29,7 @@ export default function Upload() {
       });
 
       await res.json();
-      alert("Uploaded 🚀");
+      alert("Uploaded");
     } catch (err) {
       console.error(err);
     }
