@@ -1,10 +1,61 @@
 import { Link, useLocation } from "react-router-dom";
 
+const icons = {
+  home: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L2 10v12h7v-6h6v6h7V10z"/>
+    </svg>
+  ),
+  trending: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2"
+    strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+    <polyline points="17 6 23 6 23 12"/>
+    </svg>
+    ),
+      subscriptions: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16v12H4z"/>
+      <path d="M22 20H2"/>
+      <path d="M12 16v4"/>
+    </svg>
+  ),
+  library: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5V4a2 2 0 0 1 2-2h12"/>
+      <path d="M16 2v20"/>
+      <path d="M8 6h8"/>
+      <path d="M8 10h8"/>
+      <path d="M8 14h8"/>
+    </svg>
+  ),
+    upload: (<svg width="20" height="20" viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 16V4" />
+    <path d="M8 8l4-4 4 4" />
+    <path d="M20 16v4H4v-4" />
+  </svg>
+),
+
+};
+
 const Sidebar = ({ isCollapsed }) => {
-  const location = useLocation();
+const location = useLocation();
 
   const navItem = (path, icon, label) => {
-    const isActive = location.pathname === path;
+  const isActive = location.pathname === path;
 
     return (
       <Link
@@ -27,9 +78,9 @@ const Sidebar = ({ isCollapsed }) => {
       <div className="flex flex-col gap-1 px-2">
 
         {/* MAIN */}
-        {navItem("/", "🏠", "Home")}
-        {navItem("/trending", "🔥", "Trending")}
-        {navItem("/subscriptions", "📺", "Subscriptions")}
+        {navItem("/", icons.home, "Home")}
+        {navItem("/trending", icons.trending, "Trending")}
+        {navItem("/subscriptions", icons.subscriptions, "Subscriptions")}
 
         {/* SPACING */}
         <div className="h-3" />
@@ -42,8 +93,8 @@ const Sidebar = ({ isCollapsed }) => {
         )}
 
         {/* LIBRARY */}
-        {navItem("/library", "📚", "Library")}
-        {navItem("/upload", "⬆️", "Uploads")}
+        {navItem("/library", icons.library, "Library")}
+        {navItem("/upload", icons.upload, "Uploads")}
       </div>
     </div>
   );
